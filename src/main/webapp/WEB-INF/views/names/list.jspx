@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:list id="pl_com_beayoscar_babynames_domain_Name" items="${names}" z="yKZfn8/DOuwRNtC0lMyZlfSkLzE=">
+        <table:table data="${names}" id="l_com_beayoscar_babynames_domain_Name" path="/names" z="Y6Ney1LFA1bvUf6S1bGC2daGfJk=">
+            <table:column id="c_com_beayoscar_babynames_domain_Name_vote" property="vote" z="HbrVSaIXuBZAdixqCRUZmpUIm/0="/>
+            <table:column id="c_com_beayoscar_babynames_domain_Name_name" property="name" z="C7b9Y55Ax+kr0gRhmnSSyF7C1YE="/>
+            <table:column id="c_com_beayoscar_babynames_domain_Name_description" property="description" z="DqpvjpEPOR+sPacOOIhUxdXYMs4="/>
+            <table:column id="c_com_beayoscar_babynames_domain_Name_gender" property="gender" z="2KokH8vu4DQPpkwOT4gSiltFS38="/>
+        </table:table>
+    </page:list>
+</div>

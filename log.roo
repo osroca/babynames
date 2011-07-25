@@ -1,0 +1,19 @@
+project --topLevelPackage com.beayoscar.babynames --projectName BabyNames --java 6
+persistence setup --provider HIBERNATE --database HYPERSONIC_PERSISTENT --databaseName babynames
+entity --class ~.domain.Name
+field number --fieldName vote --type java.lang.Integer --min 0
+field string --fieldName name --notNull --sizeMin 3 --unique
+field string --fieldName description
+enum type --class ~.domain.Gender
+enum constant --name MALE --class ~.domain.Gender
+enum constant --name FEMALE --class ~.domain.Gender
+field enum --fieldName gender --type ~.domain.Gender --class ~.domain.Name --notNull 
+web mvc setup
+web mvc all --package ~.web
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log closed at 2011-07-25 19:34:58
+perform eclipse
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-07-25 19:36:29
+perform eclipse
+osgi ps
+quit
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log closed at 2011-07-25 19:37:27

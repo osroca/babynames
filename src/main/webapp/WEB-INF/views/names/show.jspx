@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:show id="ps_com_beayoscar_babynames_domain_Name" object="${name}" path="/names" z="L8Dp2UFLcqFGlYonRZ9mCZxUG0Y=">
+        <field:display field="vote" id="s_com_beayoscar_babynames_domain_Name_vote" object="${name}" z="dnk5sn90g1xu4e7sP43nbM4RnNw="/>
+        <field:display field="name" id="s_com_beayoscar_babynames_domain_Name_name" object="${name}" z="ALfUqt/DqKI+IfvjSnzOazvH/f4="/>
+        <field:display field="description" id="s_com_beayoscar_babynames_domain_Name_description" object="${name}" z="4oG8TBc+Fedc+5vVb9h0DN77UR0="/>
+        <field:display field="gender" id="s_com_beayoscar_babynames_domain_Name_gender" object="${name}" z="i8laFMP56mViV0dSOJfCY01faV4="/>
+    </page:show>
+</div>
