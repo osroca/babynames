@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <div id="male_names" style="background-color: blue;"><![CDATA[&nbsp;]]></div>
+    
+    <div id="female_names" style="background-color: pink;"><![CDATA[&nbsp;]]></div>
+    <div class="clear-both"/>
+
+<script type="text/javascript">
+<![CDATA[
+    function loadGenderNames(gender) {
+    	var dojo_table = dojo.byId(gender.toLowerCase() + '_names');
+	    var rimg = new Image();
+	    rimg.src = "/BabyNames/resources/images/springsource-logo.png";
+	    dojo_table.innerHTML = "<br /><br /><br /><img src='/BabyNames/resources/images/springsource-logo.png' alt='loading' />";
+		dojo.xhrGet( {
+	      url: "/BabyNames/names", // read the url: from the action="" of the
+	      content: { find:"ByGender", gender: gender},
+	      headers: { "Accept": "application/json" },
+	      handleAs:"text",
+	      timeout: 5000, // give up after 5 seconds
+	      load: function(data, ioArgs){
+	    	  var obj = {};
+	          obj = JSON.parse(data);
+	          var s = '';
+	          for (var i = 0; i < obj.length; i++){
+	        	  s += '<p>' + obj[i].name + '</p>';
+	          }
+	        dojo_table.innerHTML = s;
+	      },
+	      error: function(err, ioArgs){
+	        // again, ioArgs is useful, but not in simple cases
+	        dojo_table.innerHTML = "An unexpected error occurred: " + error;
+	      }
+	    });
+    }
+    
+    dojo.addOnLoad(function() {
+
+	    var male_names = {};
+	    var female_names = {};
+    	var genders = new Array("MALE", "FEMALE");
+    	for (var i = 0; i < genders.length; i++) {
+    		var gender = genders[i];
+    		loadGenderNames(gender);
+    	}	
+    });
+
+]]>
+</script>
+</div>

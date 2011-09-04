@@ -6,6 +6,8 @@
         <menu:category id="c_name" z="tSlYy2bfUj/0nQbWsW7MVcnrims=">
             <menu:item id="i_name_new" messageCode="global_menu_new" url="/names?form" z="7x/sv09iEj59u33CeQ5XFnJrJxY="/>
             <menu:item id="i_name_list" messageCode="global_menu_list" url="/names?page=1&amp;size=${empty param.size ? 10 : param.size}" z="ViYwnaXKGsS4/OXk3NkRSRdujrI="/>
+            <menu:item id="i_name_list_gender" label="List por Sexos" messageCode="global_menu_list_genders" url="/names/listgenders" z="YSIuMV3OroTaplxnJjEz/YKHDKc="/>
+            <menu:item id="fi_name_gender" messageCode="global_menu_find" url="/names?find=ByGender&amp;form" z="nNcLuJzChR9ewhjWMYROGhJMkgM="/>
         </menu:category>
     </menu:menu>
 </div>

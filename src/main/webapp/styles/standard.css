@@ -371,3 +371,17 @@ fieldset th {
 	height: 11px;
 	width: 16px;
 }
+
+#male_names {
+	float: left;
+	padding: 10px;
+	width: 45%;
+}	
+#female_names {
+	float: right;
+	padding: 10px;
+	width: 45%;
+}
+.clear-both {
+	clear: both;
+}

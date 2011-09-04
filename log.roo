@@ -17,3 +17,17 @@ perform eclipse
 osgi ps
 quit
 // Spring Roo 1.1.5.RELEASE [rev d3a68c3] log closed at 2011-07-25 19:37:27
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-08-01 18:06:53
+finder list --class ~.domain.Name
+finder add --class ~.domain.Name --finderName findNamesByGender
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-09-02 17:03:50
+perform eclipse
+osgi ps
+addon info id 61
+addon info id --searchResultId 61
+addon search --requiresDescription json
+addon info id --searchResultId 01
+addon info id --searchResultId 02
+json add --class ~.domain.Name
+perform eclipse
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log closed at 2011-09-02 17:42:44
