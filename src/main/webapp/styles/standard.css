@@ -385,3 +385,54 @@ fieldset th {
 .clear-both {
 	clear: both;
 }
+
+.name_item {
+	/*padding: 20px;*/
+}
+
+.name_desc {
+	float: left;
+	width: 85%;
+}
+
+.name {
+	font-weight: bold;
+}
+
+.description {
+	font-size: small;
+	font-style: italic;
+	color: gray;
+}
+
+.vote_thumbup {
+	width: auto;
+}
+
+.vote_thumbup ul {
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.vote_thumbup ul > li {
+	float: left;
+    list-style: none outside none !important;
+    margin: 0 6px 0 0 !important;
+    padding: 0;
+}
+
+.vote_thumbup a {
+	text-decoration: none;
+	background-position: 2px -49px;
+	background-image: url("/BabyNames/resources/images/icons-tools-sprite.png");
+	background-repeat: no-repeat;
+    cursor: pointer;
+    height: 15px;
+    min-width: 15px;
+    padding-bottom: 2px;
+    padding-left: 18px;
+    text-decoration: none;
+    width: auto;
+}

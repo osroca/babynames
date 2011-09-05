@@ -2,9 +2,9 @@
 <div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
-    <div id="male_names" style="background-color: blue;"><![CDATA[&nbsp;]]></div>
-    
-    <div id="female_names" style="background-color: pink;"><![CDATA[&nbsp;]]></div>
+   	
+   	<div id="male_names"><![CDATA[&nbsp;]]></div>
+   	<div id="female_names"><![CDATA[&nbsp;]]></div>
     <div class="clear-both"/>
 
 <script type="text/javascript">
@@ -25,7 +25,15 @@
 	          obj = JSON.parse(data);
 	          var s = '';
 	          for (var i = 0; i < obj.length; i++){
-	        	  s += '<p>' + obj[i].name + '</p>';
+	        	  s += '<div class="name_item" id="' + gender.toLowerCase() + '_' + obj[i].id + '">';
+	        	  s += '<div class="name_desc">';
+	        	  s += '<div class="name">'+ obj[i].name + '</div>';
+	        	  s += '<div class="description">'+ obj[i].description + '</div>';
+	        	  s += '</div>';
+	        	  s += '<div class="vote_thumbup">';
+        	  	  s += '<ul><li><a onclick="thumbUp(\'' + obj[i].id + '\')" class="thumbup">' + obj[i].vote + '</a></li></ul>';
+	        	  s += '</div>';
+	        	  s += '</div>';
 	          }
 	        dojo_table.innerHTML = s;
 	      },
@@ -34,6 +42,10 @@
 	        dojo_table.innerHTML = "An unexpected error occurred: " + error;
 	      }
 	    });
+    }
+    
+    function thumbUp(itemId) {
+    	alert(itemId);
     }
     
     dojo.addOnLoad(function() {
