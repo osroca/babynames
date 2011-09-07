@@ -2,7 +2,7 @@
 <div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
-   	
+    
    	<div id="male_names"><![CDATA[&nbsp;]]></div>
    	<div id="female_names"><![CDATA[&nbsp;]]></div>
     <div class="clear-both"/>
@@ -31,27 +31,44 @@
 	        	  s += '<div class="description">'+ obj[i].description + '</div>';
 	        	  s += '</div>';
 	        	  s += '<div class="vote_thumbup">';
-        	  	  s += '<ul><li><a onclick="thumbUp(\'' + obj[i].id + '\')" class="thumbup">' + obj[i].vote + '</a></li></ul>';
+        	  	  s += '<ul><li><a onclick="thumbUp(\'' + obj[i].id + '\')" class="thumbup" id="vote_' + obj[i].id + '">' + obj[i].vote + '</a></li></ul>';
 	        	  s += '</div>';
 	        	  s += '</div>';
 	          }
 	        dojo_table.innerHTML = s;
 	      },
 	      error: function(err, ioArgs){
-	        // again, ioArgs is useful, but not in simple cases
 	        dojo_table.innerHTML = "An unexpected error occurred: " + error;
 	      }
 	    });
     }
     
     function thumbUp(itemId) {
-    	alert(itemId);
+    	dojo.require("dojo.cookie");
+		var allowed = dojo.cookie("voteAllowed");
+		
+		if (allowed != undefined && allowed != "NO") {
+	    	dojo.xhrPut( {
+	  	      url: "/BabyNames/names/" + itemId + "/liked",
+	  	      headers: { "Accept": "application/json" },
+	  	      handleAs:"text",
+	  	      timeout: 5000, // give up after 5 seconds
+	  	      load: function(data, ioArgs){
+	  	    	  var obj = JSON.parse(data);
+	  	    	  var nameLiked = dojo.byId('vote_' + itemId);
+	  	    	  nameLiked.innerHTML = obj.vote;
+	  	    	  dojo.cookie("voteAllowed", "NO");
+	  	      }
+	    	});
+		}
+  	      /*,
+  	      error: function(err, ioArgs){
+  	        // again, ioArgs is useful, but not in simple cases
+  	        dojo_table.innerHTML = "An unexpected error occurred: " + error;
+  	      }*/
     }
     
     dojo.addOnLoad(function() {
-
-	    var male_names = {};
-	    var female_names = {};
     	var genders = new Array("MALE", "FEMALE");
     	for (var i = 0; i < genders.length; i++) {
     		var gender = genders[i];
