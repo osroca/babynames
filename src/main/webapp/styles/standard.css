@@ -372,12 +372,13 @@ fieldset th {
 	width: 16px;
 }
 
-#male_names {
+#left{
 	float: left;
 	padding: 10px;
 	width: 45%;
 }	
-#female_names {
+
+#right {
 	float: right;
 	padding: 10px;
 	width: 45%;
@@ -386,8 +387,26 @@ fieldset th {
 	clear: both;
 }
 
+#left .column_title {
+	color: blue;
+}
+#right .column_title {
+	color: pink;
+}
+
+.column_title {
+	text-align: center;
+	font-weight: bolder;
+}
+
+.loading {
+    margin: 40px 0 0 0;
+	text-align: center;
+}
+
 .name_item {
-	/*padding: 20px;*/
+	padding-bottom: 40px;
+    padding-top: 10px;
 }
 
 .name_desc {
@@ -435,4 +454,32 @@ fieldset th {
     padding-left: 18px;
     text-decoration: none;
     width: auto;
+}
+
+.nameform {
+	clear: both;
+	float: left;
+}
+
+.formlink {
+	clear: both;
+	padding-top: 20px;
+}
+.formlink a {
+	text-decoration: none;
+}
+
+#maleFormDialog input, #maleFormDialog textarea, #femaleFormDialog input, #femaleFormDialog textarea {
+	width: 200px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+
+.button {
+	float: right;
+	padding-top: 10px;
+}
+
+.field {
+	padding-top: 10px;
 }

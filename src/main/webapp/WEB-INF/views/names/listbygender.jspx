@@ -1,81 +1,191 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:spring="http://www.springframework.org/tags" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
-    
-   	<div id="male_names"><![CDATA[&nbsp;]]></div>
-   	<div id="female_names"><![CDATA[&nbsp;]]></div>
+    <script type="text/javascript">
+    <![CDATA[
+		 dojo.require("dijit.form.Form");
+		 dojo.require("dijit.form.Button");
+         dojo.require("dijit.Dialog");
+         dojo.require("dijit.form.Textarea");
+         dojo.require("dijit.form.ValidationTextBox");
+         dojo.addOnLoad(function() {
+        	 dojo.parser.parse();
+         });
+    ]]>
+    </script>
+    <div id="left">
+    	<div class="column_title"><spring:message code="male_names" text="Chicos" htmlEscape="false"/></div>
+   		<div id="male_names"><![CDATA[&nbsp;]]></div>
+   		<div dojoType="dijit.Dialog" class="nameForm" id="maleFormDialog" title="Form Dialog">
+	   		<form dojoType="dijit.form.Form" id="maleForm">
+	   			<script type="dojo/event" event="onSubmit" args="em">
+				<![CDATA[
+                    dojo.stopEvent(em); // prevent the default submit
+                    if (!this.isValid()) {
+                        //window.alert('Please fix fields');
+                        return;
+                    }
+
+                    var name = { "name": dojo.attr('mname', 'value'), "description": dojo.attr('mdescription', 'value'), "vote": "0", "gender": "MALE" };
+					dojo.xhrPost( {
+                          url: '/BabyNames/names',
+						  postData: dojo.toJson(name),
+                          headers: { "Accept": "application/json", "Content-Type": "application/json" },
+		      		      handleAs:"json",
+		      			  timeout: 5000,
+                          load: function(data){ 
+							dijit.byId('maleForm').reset();
+							dijit.byId('maleFormDialog').hide();
+							loadGenderNames('MALE'); 
+						  },
+                          error: function(data){ 
+							dijit.byId('maleFormDialog').hide();
+						  }
+                    });
+                ]]>
+                </script>
+	   			<div class="field">
+		   			<label for="mname">Nombre:</label>
+		   			<input type="text" name="name" id="mname" required="true" dojoType="dijit.form.ValidationTextBox" invalidMessage="Campo requerido" propercase="true"/>
+	   			</div>
+	   			<div class="field">
+		   			<label for="mdescription">Descripción:</label>
+		   			<textarea name="description" id="mdescription" dojoType="dijit.form.Textarea" trim="true" ><![CDATA[&nbsp;]]></textarea>
+		   		</div>
+		   		<div class="field button">
+		   			<button dojoType="dijit.form.Button" type="submit">Guardar</button>
+		   			<button dojoType="dijit.form.Button" type="button" onClick="dijit.byId('maleFormDialog').hide();">Cancelar</button>
+		   		</div>
+	   		</form>
+   		</div>
+   		<div class="formlink">
+  			<a href="#" onclick="dijit.byId('maleFormDialog').show();">Add</a>
+  		</div>
+   	</div>
+   	<div id="right">
+   		<div class="column_title"><spring:message code="female_names" text="Chicas" htmlEscape="false"/></div>
+   		<div id="female_names"><![CDATA[&nbsp;]]></div>
+   		<div dojoType="dijit.Dialog" class="nameForm" id="femaleFormDialog" title="Form Dialog Chicas">
+	   		<form dojoType="dijit.form.Form"  id="femaleForm">
+	   			<script type="dojo/event" event="onSubmit" args="em">
+				<![CDATA[
+                    dojo.stopEvent(em); // prevent the default submit
+                    if (!this.isValid()) {
+                        window.alert('Please fix fields');
+                        return;
+                    }
+
+                    var name = { "name": dojo.attr('fname', 'value'), "description": dojo.attr('fdescription', 'value'), "vote": "0", "gender": "FEMALE" };
+					dojo.xhrPost( {
+                          url: '/BabyNames/names',
+						  postData: dojo.toJson(name),
+                          headers: { "Accept": "application/json", "Content-Type": "application/json" },
+		      		      handleAs:"json",
+		      			  timeout: 5000,
+                          load: function(data){ 
+							dijit.byId('maleForm').reset();
+							dijit.byId('femaleFormDialog').hide();
+							loadGenderNames('FEMALE'); 
+						  },
+                          error: function(data){
+							dijit.byId('femaleFormDialog').hide();
+						  }
+                    });
+                ]]>
+                </script>
+                <div id="fform">
+	   			<div class="field">
+		   			<label for="fname">Nombre:</label>
+		   			<input type="text" name="name" id="fname" required="true" dojoType="dijit.form.ValidationTextBox" invalidMessage="Campo requerido" propercase="true"/>
+	   			</div>
+	   			<div class="field">
+		   			<label for="fdescription">Descripción:</label>
+		   			<textarea name="description" id="fdescription" dojoType="dijit.form.Textarea" trim="true" ><![CDATA[&nbsp;]]></textarea>
+		   		</div>
+		   		<div class="field button">
+		   			<button dojoType="dijit.form.Button" type="submit">Guardar</button>
+		   			<button dojoType="dijit.form.Button" type="button" onClick="dijit.byId('femaleFormDialog').hide();">Cancelar</button>
+		   		</div>
+		   		</div>
+		   		<div id="ferror" style="display: none;">Error guardando el nuevo nombre</div>
+	   		</form>
+   		</div>
+   		<div class="formlink">
+  			<a href="#" onclick="dijit.byId('femaleFormDialog').show();">Add</a>
+  		</div>
+   	</div>
     <div class="clear-both"/>
 
-<script type="text/javascript">
-<![CDATA[
-    function loadGenderNames(gender) {
-    	var dojo_table = dojo.byId(gender.toLowerCase() + '_names');
-	    var rimg = new Image();
-	    rimg.src = "/BabyNames/resources/images/springsource-logo.png";
-	    dojo_table.innerHTML = "<br /><br /><br /><img src='/BabyNames/resources/images/springsource-logo.png' alt='loading' />";
-		dojo.xhrGet( {
-	      url: "/BabyNames/names", // read the url: from the action="" of the
-	      content: { find:"ByGender", gender: gender},
-	      headers: { "Accept": "application/json" },
-	      handleAs:"text",
-	      timeout: 5000, // give up after 5 seconds
-	      load: function(data, ioArgs){
-	    	  var obj = {};
-	          obj = JSON.parse(data);
-	          var s = '';
-	          for (var i = 0; i < obj.length; i++){
-	        	  s += '<div class="name_item" id="' + gender.toLowerCase() + '_' + obj[i].id + '">';
-	        	  s += '<div class="name_desc">';
-	        	  s += '<div class="name">'+ obj[i].name + '</div>';
-	        	  s += '<div class="description">'+ obj[i].description + '</div>';
-	        	  s += '</div>';
-	        	  s += '<div class="vote_thumbup">';
-        	  	  s += '<ul><li><a onclick="thumbUp(\'' + obj[i].id + '\')" class="thumbup" id="vote_' + obj[i].id + '">' + obj[i].vote + '</a></li></ul>';
-	        	  s += '</div>';
-	        	  s += '</div>';
-	          }
-	        dojo_table.innerHTML = s;
-	      },
-	      error: function(err, ioArgs){
-	        dojo_table.innerHTML = "An unexpected error occurred: " + error;
-	      }
+	<script type="text/javascript">
+	<![CDATA[
+	    function loadGenderNames(gender) {
+	    	var dojo_table = dojo.byId(gender.toLowerCase() + '_names');
+		    var rimg = new Image();
+		    rimg.src = "/BabyNames/resources/images/springsource-logo.png";
+		    dojo_table.innerHTML = "<div class=\"loading\"><img src='/BabyNames/resources/images/ajax-loader.gif' alt='loading' /></div>";
+			dojo.xhrGet( {
+		      url: "/BabyNames/names", // read the url: from the action="" of the
+		      content: { find:"ByGender", gender: gender},
+		      headers: { "Accept": "application/json" },
+		      handleAs:"text",
+		      timeout: 5000, // give up after 5 seconds
+		      load: function(data, ioArgs){
+		    	  var obj = {};
+		          obj = JSON.parse(data);
+		          var s = '';
+		          for (var i = 0; i < obj.length; i++){
+		        	  s += '<div class="name_item" id="' + gender.toLowerCase() + '_' + obj[i].id + '">';
+		        	  s += '<div class="name_desc">';
+		        	  s += '<div class="name">'+ obj[i].name + '</div>';
+		        	  s += '<div class="description">'+ obj[i].description + '</div>';
+		        	  s += '</div>';
+		        	  s += '<div class="vote_thumbup">';
+	        	  	  s += '<ul><li><a onclick="thumbUp(\'' + obj[i].id + '\')" class="thumbup" id="vote_' + obj[i].id + '">' + obj[i].vote + '</a></li></ul>';
+		        	  s += '</div>';
+		        	  s += '</div>';
+		          }
+		        dojo_table.innerHTML = s;
+		      },
+		      error: function(err, ioArgs){
+		        dojo_table.innerHTML = "An unexpected error occurred: " + error;
+		      }
+		    });
+	    }
+	    
+	    function thumbUp(itemId) {
+	    	dojo.require("dojo.cookie");
+			var allowed = dojo.cookie("voteAllowed");
+			
+			if (allowed == undefined || allowed != "NO") {
+		    	dojo.xhrPut( {
+		  	      url: "/BabyNames/names/" + itemId + "/liked",
+		  	      headers: { "Accept": "application/json" },
+		  	      handleAs:"text",
+		  	      timeout: 5000, // give up after 5 seconds
+		  	      load: function(data, ioArgs){
+		  	    	  var obj = JSON.parse(data);
+		  	    	  var nameLiked = dojo.byId('vote_' + itemId);
+		  	    	  nameLiked.innerHTML = obj.vote;
+		  	    	  dojo.cookie("voteAllowed", "NO");
+		  	      }
+		    	});
+			}
+	  	      /*,
+	  	      error: function(err, ioArgs){
+	  	        // again, ioArgs is useful, but not in simple cases
+	  	        dojo_table.innerHTML = "An unexpected error occurred: " + error;
+	  	      }*/
+	    }
+	    
+	    dojo.addOnLoad(function() {
+	    	var genders = new Array("MALE", "FEMALE");
+	    	for (var i = 0; i < genders.length; i++) {
+	    		var gender = genders[i];
+	    		loadGenderNames(gender);
+	    	}	
 	    });
-    }
-    
-    function thumbUp(itemId) {
-    	dojo.require("dojo.cookie");
-		var allowed = dojo.cookie("voteAllowed");
-		
-		if (allowed != undefined && allowed != "NO") {
-	    	dojo.xhrPut( {
-	  	      url: "/BabyNames/names/" + itemId + "/liked",
-	  	      headers: { "Accept": "application/json" },
-	  	      handleAs:"text",
-	  	      timeout: 5000, // give up after 5 seconds
-	  	      load: function(data, ioArgs){
-	  	    	  var obj = JSON.parse(data);
-	  	    	  var nameLiked = dojo.byId('vote_' + itemId);
-	  	    	  nameLiked.innerHTML = obj.vote;
-	  	    	  dojo.cookie("voteAllowed", "NO");
-	  	      }
-	    	});
-		}
-  	      /*,
-  	      error: function(err, ioArgs){
-  	        // again, ioArgs is useful, but not in simple cases
-  	        dojo_table.innerHTML = "An unexpected error occurred: " + error;
-  	      }*/
-    }
-    
-    dojo.addOnLoad(function() {
-    	var genders = new Array("MALE", "FEMALE");
-    	for (var i = 0; i < genders.length; i++) {
-    		var gender = genders[i];
-    		loadGenderNames(gender);
-    	}	
-    });
-
-]]>
-</script>
+	
+	]]>
+	</script>
 </div>

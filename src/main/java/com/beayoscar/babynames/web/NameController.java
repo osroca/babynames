@@ -32,7 +32,7 @@ public class NameController {
     }
     
     @RequestMapping(value = "/{id}/liked", method = RequestMethod.PUT, headers = "Accept=application/json")
-    public ResponseEntity<String> updateFromJsonw(@PathVariable("id") Long id) {
+    public ResponseEntity<String> likeName(@PathVariable("id") Long id) {
     	Name name = Name.findName(id);
     	name.setVote(name.getVote() + 1);
         HttpHeaders headers= new HttpHeaders();
