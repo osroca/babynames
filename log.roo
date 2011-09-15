@@ -31,3 +31,5 @@ addon info id --searchResultId 02
 json add --class ~.domain.Name
 perform eclipse
 // Spring Roo 1.1.5.RELEASE [rev d3a68c3] log closed at 2011-09-02 17:42:44
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-09-15 17:42:53
+web mvc language --code es
