@@ -33,3 +33,18 @@ perform eclipse
 // Spring Roo 1.1.5.RELEASE [rev d3a68c3] log closed at 2011-09-02 17:42:44
 // Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-09-15 17:42:53
 web mvc language --code es
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-09-17 18:25:09
+perform eclipse
+test integration --entity ~.domain.Name
+persistence setup --provider HIBERNATE --database HYPERSONIC_IN_MEMORY 
+perform tests
+perform tests
+perform tests
+perform tests
+perform eclipse
+perform command --mavenCommand integration-test
+perform eclipse
+perform command --mavenCommand integration-test
+// [failed] perform tests
+perform tests 
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log closed at 2011-09-17 22:15:33
