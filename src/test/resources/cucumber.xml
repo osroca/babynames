@@ -8,9 +8,8 @@ http://www.springframework.org/schema/jee http://www.springframework.org/schema/
 http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
   
   <context:component-scan base-package="com.beayoscar.babynames.features">
-       <context:exclude-filter expression=".*_Roo_.*" type="regex"/>
-       <context:exclude-filter expression="org.springframework.stereotype.Controller" type="annotation"/>
-   </context:component-scan>
+	  <context:include-filter type="annotation" expression="cuke4duke.spring.StepDefinitions"/>
+  </context:component-scan>
   
-  <!-- import resource="applicationContext.xml"/> -->
+  <import resource="META-INF/spring/applicationContext.xml"/>
 </beans>

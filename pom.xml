@@ -568,9 +568,6 @@
           <gems>
             <gem>install cuke4duke --version ${cuke4duke.version}</gem>
           </gems>
-          <excludes>
-          	<exclude>**/aop-ajc.xml</exclude>
-          </excludes>
         </configuration>
         <executions>
           <execution>
