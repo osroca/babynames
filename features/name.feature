@@ -14,3 +14,4 @@ Feature: Name feature
         	And the Gender FEMALE
         	Then we have 1 name
         	And existing name has 0 votes.
+        	

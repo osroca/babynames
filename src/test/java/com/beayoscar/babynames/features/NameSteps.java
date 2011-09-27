@@ -13,39 +13,39 @@ import cuke4duke.spring.StepDefinitions;
 
 @StepDefinitions
 public class NameSteps {
-	
-	@Transform
-	public Gender transformStringToGender(String gender) {
-	    return Gender.valueOf(gender);
-	}
-	
-	private String name;
-	private Gender gender;
-	private Name nameObj;
 
-	@Given("^the Name ([A-z]*)$")
-	public void theNameIs(String name) {
-		this.name = name;
-	}
+    @Transform
+    public Gender transformStringToGender(String gender) {
+        return Gender.valueOf(gender);
+    }
 
-	@And("^the Gender ([A-z]*)$")
-	public void theGenderIs(Gender gender) {
-		this.gender = gender;
-	}
+    private String name;
+    private Gender gender;
+    private Name nameObj;
 
-	@Then("^we have (\\d+) name$")
-	public void weHaveCount(String number) {
-		nameObj = new Name();
-		nameObj.setName(name);
-		nameObj.setGender(gender);
-		nameObj.persist();
-		
-		assertEquals(Integer.valueOf(number).intValue(), Name.findNamesByGender(gender).getResultList().size());
-	}
-	
-	@And("^existing name has (\\d+) votes\\.$")
-	public void existingNameHasVote(String number) {
-		assertEquals(0, nameObj.getVote().longValue());
-	}
+    @Given("^the Name ([A-z]*)$")
+    public void theNameIs(String name) {
+        this.name = name;
+    }
 
+    @And("^the Gender ([A-z]*)$")
+    public void theGenderIs(Gender gender) {
+        this.gender = gender;
+    }
+
+    @Then("^we have (\\d+) name$")
+    public void weHaveCount(String number) {
+        nameObj = new Name();
+        nameObj.setName(name);
+        nameObj.setGender(gender);
+        nameObj.persist();
+
+        assertEquals(Integer.valueOf(number).intValue(), Name
+                .findNamesByGender(gender).getResultList().size());
+    }
+
+    @And("^existing name has (\\d+) votes\\.$")
+    public void existingNameHasVote(String number) {
+        assertEquals(0, nameObj.getVote().longValue());
+    }
 }
