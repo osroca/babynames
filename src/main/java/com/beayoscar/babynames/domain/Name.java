@@ -1,17 +1,16 @@
 package com.beayoscar.babynames.domain;
 
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.EntityManager;
 import javax.persistence.Enumerated;
 import javax.persistence.TypedQuery;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
 import org.springframework.roo.addon.entity.RooEntity;
 import org.springframework.roo.addon.javabean.RooJavaBean;
-import org.springframework.roo.addon.tostring.RooToString;
 import org.springframework.roo.addon.json.RooJson;
+import org.springframework.roo.addon.tostring.RooToString;
 
 @RooJavaBean
 @RooToString
@@ -19,8 +18,7 @@ import org.springframework.roo.addon.json.RooJson;
 @RooJson
 public class Name {
 
-    @Min(0L)
-    private Integer vote;
+    private Integer vote = 0;
 
     @NotNull
     @Column(unique = true)
