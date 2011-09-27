@@ -483,3 +483,15 @@ fieldset th {
 .field {
 	padding-top: 10px;
 }
+
+#copy-right {
+	float: right;
+}
+
+#footer #language {
+	padding-left: 10px;
+}
+
+#main .content {
+	min-height: 200px;
+}
