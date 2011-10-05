@@ -49,10 +49,7 @@ privileged aspect NameDataOnDemand_Roo_DataOnDemand {
     }
     
     public void NameDataOnDemand.setVote(Name obj, int index) {
-        Integer vote = new Integer(index);
-        if (vote < 0) {
-            vote = 0;
-        }
+        Integer vote = 0;
         obj.setVote(vote);
     }
     

@@ -48,3 +48,4 @@ perform command --mavenCommand integration-test
 // [failed] perform tests
 perform tests 
 // Spring Roo 1.1.5.RELEASE [rev d3a68c3] log closed at 2011-09-17 22:15:33
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-10-05 23:47:49
