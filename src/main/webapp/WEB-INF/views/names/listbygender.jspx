@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:spring="http://www.springframework.org/tags" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:spring="http://www.springframework.org/tags" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0" class="content">
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
     <script type="text/javascript">
@@ -100,7 +100,7 @@
 		      		      handleAs:"json",
 		      			  timeout: 5000,
                           load: function(data){ 
-							dijit.byId('maleForm').reset();
+							dijit.byId('femaleForm').reset();
 							dijit.byId('femaleFormDialog').hide();
 							loadGenderNames('FEMALE'); 
 						  },
@@ -174,9 +174,13 @@
 	    
 	    function thumbUp(itemId) {
 	    	dojo.require("dojo.cookie");
-			var allowed = dojo.cookie("voteAllowed");
+			var allowed = dojo.fromJson(dojo.cookie("voteAllowed"));
 			
-			if (allowed == undefined || allowed != "NO") {
+			if (allowed == undefined) {
+				allowed = new Object();
+			}
+			
+			if (allowed[itemId] == undefined || allowed[itemId] != "NO"){
 		    	dojo.xhrPut( {
 		  	      url: "/BabyNames/names/" + itemId + "/liked",
 		  	      headers: { "Accept": "application/json" },
@@ -186,7 +190,8 @@
 		  	    	  var obj = JSON.parse(data);
 		  	    	  var nameLiked = dojo.byId('vote_' + itemId);
 		  	    	  nameLiked.innerHTML = obj.vote;
-		  	    	  dojo.cookie("voteAllowed", "NO");
+		  	    	  allowed[itemId] = "NO";
+		  	    	  dojo.cookie("voteAllowed", dojo.toJson(allowed));
 		  	      }
 		    	});
 			}

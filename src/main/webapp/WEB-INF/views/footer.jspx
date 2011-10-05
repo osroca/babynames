@@ -3,12 +3,6 @@
   <jsp:directive.page contentType="text/html;charset=UTF-8"/>
   <jsp:output omit-xml-declaration="yes"/>
 
-  <spring:url value="/" var="home"/>
-  <span>
-    <a href="${home}">
-      <spring:message code="button_home"/>
-    </a>
-  </span>
   <c:if test="${pageContext['request'].userPrincipal != null}">
     <c:out value=" | "/>
     <span>
@@ -20,19 +14,15 @@
   </c:if>
 
   <span id="language">
-    <c:out value=" | "/>
-    <spring:message code="global_language"/>
-    <c:out value=": "/>
-  <util:language label="English" locale="en"/>
     <util:language label="Espanol" locale="es"/>
-    </span>
-  <util:theme/>
+  	<util:language label="English" locale="en"/>
+  </span>
 
   <spring:url value="/resources/images/springsource-logo.png" var="logo"/>
   <spring:message code="global_sponsored" htmlEscape="false" var="sponsored"/>
-  <span>
-    <a href="http://springsource.com" title="${fn:escapeXml(sponsored)}">
-      <img align="right" alt="${fn:escapeXml(sponsored)}" src="${logo}"/>
-    </a>
+  <spring:message code="application_name" var="app_name" htmlEscape="false"/>
+  <spring:message code="global_copy_right" var="app_copy_right" arguments="${app_name},2011" htmlEscape="false"/>
+  <span id="copy-right">
+  	${app_copy_right}
   </span>
 </div>
