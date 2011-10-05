@@ -174,9 +174,13 @@
 	    
 	    function thumbUp(itemId) {
 	    	dojo.require("dojo.cookie");
-			var allowed = dojo.cookie("voteAllowed");
+			var allowed = dojo.fromJson(dojo.cookie("voteAllowed"));
 			
-			if (allowed == undefined || allowed != "NO") {
+			if (allowed == undefined) {
+				allowed = new Object();
+			}
+			
+			if (allowed[itemId] == undefined || allowed[itemId] != "NO"){
 		    	dojo.xhrPut( {
 		  	      url: "/BabyNames/names/" + itemId + "/liked",
 		  	      headers: { "Accept": "application/json" },
@@ -186,7 +190,8 @@
 		  	    	  var obj = JSON.parse(data);
 		  	    	  var nameLiked = dojo.byId('vote_' + itemId);
 		  	    	  nameLiked.innerHTML = obj.vote;
-		  	    	  dojo.cookie("voteAllowed", "NO");
+		  	    	  allowed[itemId] = "NO";
+		  	    	  dojo.cookie("voteAllowed", dojo.toJson(allowed));
 		  	      }
 		    	});
 			}

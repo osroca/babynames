@@ -7,12 +7,17 @@ body,div,td {
 }
 
 body {
-	background-color: #fff;
+	background-color: #7DB223;
 	text-align: center;
 }
 
 #header {
 	margin-bottom: 1em;
+	background-color: #FFFFFF;
+    border-radius: 10px 10px 10px 10px;
+    padding: 10px;
+    text-align: right;
+    text-decoration: underline;
 }
 
 #wrapper {
@@ -34,6 +39,9 @@ body {
 #main {
 	overflow:hidden;
 	display:box;
+	background-color: #FFFFFF;
+    border-radius: 10px 10px 0 0;
+    padding: 10px;
 }
 
 #menu {
@@ -486,6 +494,7 @@ fieldset th {
 
 #copy-right {
 	float: right;
+	padding-right: 10px;
 }
 
 #footer #language {
