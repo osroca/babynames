@@ -39,14 +39,6 @@ privileged aspect NameController_Roo_Controller_Json {
         return new ResponseEntity<String>(Name.toJsonArray(Name.findAllNames()), headers, HttpStatus.OK);
     }
     
-    @RequestMapping(method = RequestMethod.POST, headers = "Accept=application/json")
-    public ResponseEntity<String> NameController.createFromJson(@RequestBody String json) {
-        Name.fromJsonToName(json).persist();
-        HttpHeaders headers= new HttpHeaders();
-        headers.add("Content-Type", "application/text");
-        return new ResponseEntity<String>(headers, HttpStatus.CREATED);
-    }
-    
     @RequestMapping(value = "/jsonArray", method = RequestMethod.POST, headers = "Accept=application/json")
     public ResponseEntity<String> NameController.createFromJsonArray(@RequestBody String json) {
         for (Name name: Name.fromJsonArrayToNames(json)) {
@@ -55,16 +47,6 @@ privileged aspect NameController_Roo_Controller_Json {
         HttpHeaders headers= new HttpHeaders();
         headers.add("Content-Type", "application/text");
         return new ResponseEntity<String>(headers, HttpStatus.CREATED);
-    }
-    
-    @RequestMapping(method = RequestMethod.PUT, headers = "Accept=application/json")
-    public ResponseEntity<String> NameController.updateFromJson(@RequestBody String json) {
-        HttpHeaders headers= new HttpHeaders();
-        headers.add("Content-Type", "application/text");
-        if (Name.fromJsonToName(json).merge() == null) {
-            return new ResponseEntity<String>(headers, HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<String>(headers, HttpStatus.OK);
     }
     
     @RequestMapping(value = "/jsonArray", method = RequestMethod.PUT, headers = "Accept=application/json")
@@ -76,18 +58,6 @@ privileged aspect NameController_Roo_Controller_Json {
                 return new ResponseEntity<String>(headers, HttpStatus.NOT_FOUND);
             }
         }
-        return new ResponseEntity<String>(headers, HttpStatus.OK);
-    }
-    
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")
-    public ResponseEntity<String> NameController.deleteFromJson(@PathVariable("id") Long id) {
-        Name name = Name.findName(id);
-        HttpHeaders headers= new HttpHeaders();
-        headers.add("Content-Type", "application/text");
-        if (name == null) {
-            return new ResponseEntity<String>(headers, HttpStatus.NOT_FOUND);
-        }
-        name.remove();
         return new ResponseEntity<String>(headers, HttpStatus.OK);
     }
     

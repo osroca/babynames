@@ -1,0 +1,6 @@
+<jsp:root xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:spring="http://www.springframework.org/tags" xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+  <spring:message code="modal_login" text="Login" var="modal_login_title" />
+  <div dojoType="dijit.Dialog" id="modal_login" style="display: none; position: absolute;" title="${modal_login_title}">
+      <div class="content"><jsp:include page="/WEB-INF/views/login.jspx" /></div>
+  </div>
+</jsp:root>
