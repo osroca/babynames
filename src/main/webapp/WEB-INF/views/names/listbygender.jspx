@@ -140,15 +140,17 @@
    	</div>
     <div class="clear-both"/>
 
+	<spring:url value="/resources/images/ajax-loader.gif" var="ajax_loader" />
+	<spring:url value="/names" var="names" />
 	<script type="text/javascript">
 	<![CDATA[
 	    function loadGenderNames(gender) {
 	    	var dojo_table = dojo.byId(gender.toLowerCase() + '_names');
-		    var rimg = new Image();
-		    rimg.src = "/BabyNames/resources/images/springsource-logo.png";
-		    dojo_table.innerHTML = "<div class=\"loading\"><img src='/BabyNames/resources/images/ajax-loader.gif' alt='loading' /></div>";
+		    //var rimg = new Image();
+		    //rimg.src = "";
+		    dojo_table.innerHTML = "<div class=\"loading\"><img src='${ajax_loader}' alt='loading' /></div>";
 			dojo.xhrGet( {
-		      url: "/BabyNames/names", // read the url: from the action="" of the
+		      url: "${names}", // read the url: from the action="" of the
 		      content: { find:"ByGender", gender: gender},
 		      headers: { "Accept": "application/json" },
 		      handleAs:"text",
@@ -186,7 +188,7 @@
 			
 			if (allowed[itemId] == undefined || allowed[itemId] != "NO"){
 		    	dojo.xhrPut( {
-		  	      url: "/BabyNames/names/" + itemId + "/liked",
+		  	      url: "${names}/" + itemId + "/liked",
 		  	      headers: { "Accept": "application/json" },
 		  	      handleAs:"text",
 		  	      timeout: 5000, // give up after 5 seconds
