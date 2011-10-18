@@ -22,6 +22,8 @@
  	<spring:message code="error_form_fields" var="fieldFormError"/>
  	<spring:message code="global_menu_new" arguments="${fieldName}" var="newName"/>
  	<spring:message code="link_return" text="Return" var="return"/>
+ 	
+	<spring:url value="/names" var="names" />
     <div id="left">
    		<spring:message code="label_gender_male_plural" var="malePlural"/>
     	<div class="column_title">${malePlural}</div>
@@ -38,7 +40,7 @@
 
                     var name = { "name": dojo.attr('mname', 'value'), "description": dojo.attr('mdescription', 'value'), "vote": "0", "gender": "MALE" };
 					dojo.xhrPost( {
-                          url: '/BabyNames/names',
+                          url: '${names}',
 						  postData: dojo.toJson(name),
                           headers: { "Accept": "application/json", "Content-Type": "application/json" },
 		      		      handleAs:"json",
@@ -96,7 +98,7 @@
 
                     var name = { "name": dojo.attr('fname', 'value'), "description": dojo.attr('fdescription', 'value'), "vote": "0", "gender": "FEMALE" };
 					dojo.xhrPost( {
-                          url: '/BabyNames/names',
+                          url: '${names}',
 						  postData: dojo.toJson(name),
                           headers: { "Accept": "application/json", "Content-Type": "application/json" },
 		      		      handleAs:"json",
@@ -141,7 +143,7 @@
     <div class="clear-both"/>
 
 	<spring:url value="/resources/images/ajax-loader.gif" var="ajax_loader" />
-	<spring:url value="/names" var="names" />
+	<spring:url value="/resources/images/icons-tools-sprite.png" var="thumb_up" />
 	<script type="text/javascript">
 	<![CDATA[
 	    function loadGenderNames(gender) {

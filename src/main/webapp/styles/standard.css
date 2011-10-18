@@ -453,7 +453,7 @@ fieldset th {
 .vote_thumbup a {
 	text-decoration: none;
 	background-position: 2px -49px;
-	background-image: url("/BabyNames/resources/images/icons-tools-sprite.png");
+	background-image: url("/resources/images/icons-tools-sprite.png");
 	background-repeat: no-repeat;
     cursor: pointer;
     height: 15px;
