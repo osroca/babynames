@@ -34,6 +34,13 @@ security configuration in file src/main/resources/META-INF/spring/applicationCon
 
 Login with admin/admin for role admin, and user/user for role user.
 
+## How to run
+
+The project is a Maven project. You can run the application using the Tomcat Maven plugin that is set up in 
+pom.xml. Invoke the following command in the system shell.
+
+``mvn tomcat:run`` 
+
 ## TODO
 
 There are some things to do.
