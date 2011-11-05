@@ -1,3 +1,4 @@
+.DS_Store
 .settings
 .settings/*
 .classpath
@@ -5,3 +6,4 @@
 .springBeans
 target
 target/*
+bin/

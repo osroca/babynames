@@ -13,4 +13,10 @@
 <definition extends="default" name="names/update">
         <put-attribute name="body" value="/WEB-INF/views/names/update.jspx"/>
     </definition>
+<definition extends="default" name="names/findNamesByGender">
+        <put-attribute name="body" value="/WEB-INF/views/names/findNamesByGender.jspx"/>
+    </definition>
+    <definition extends="default" name="names/listbygender">
+        <put-attribute name="body" value="/WEB-INF/views/names/listbygender.jspx"/>
+    </definition>
 </tiles-definitions>

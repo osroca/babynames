@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:spring="http://www.springframework.org/tags" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:sec="http://www.springframework.org/security/tags" version="2.0" class="content">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <script type="text/javascript">
+    <![CDATA[
+		 dojo.require("dijit.form.Form");
+		 dojo.require("dijit.form.Button");
+         dojo.require("dijit.Dialog");
+         dojo.require("dijit.form.Textarea");
+         dojo.require("dijit.form.ValidationTextBox");
+         dojo.addOnLoad(function() {
+        	 dojo.parser.parse();
+         });
+    ]]>
+    </script>
+ 	<spring:message code="form_dialog_title" var="formDialogTitle" />
+ 	<spring:message code="label_com_beayoscar_babynames_domain_name_name" var="fieldName"/>
+ 	<spring:message code="label_com_beayoscar_babynames_domain_name_description" var="fieldDescription"/>
+ 	<spring:message code="button_save" var="button_save"/>
+ 	<spring:message code="button_cancel" var="button_cancel"/>
+ 	<spring:message code="error_form_fields" var="fieldFormError"/>
+ 	<spring:message code="global_menu_new" arguments="${fieldName}" var="newName"/>
+ 	<spring:message code="link_return" text="Return" var="return"/>
+ 	
+	<spring:url value="/names" var="names" />
+    <div id="left">
+   		<spring:message code="label_gender_male_plural" var="malePlural"/>
+    	<div class="column_title">${malePlural}</div>
+   		<div id="male_names"><![CDATA[&nbsp;]]></div>
+   		<div dojoType="dijit.Dialog" class="nameForm" id="maleFormDialog" title="${formDialogTitle} ${fn:toUpperCase(fn:substring(malePlural, 0, 1))}${fn:toLowerCase(fn:substring(malePlural, 1, -1))}">
+	   		<form dojoType="dijit.form.Form" id="maleForm">
+	   			<script type="dojo/event" event="onSubmit" args="em">
+				<![CDATA[
+                    dojo.stopEvent(em); // prevent the default submit
+                    if (!this.isValid()) {
+						showFormError('m');
+                        return;
+                    }
+
+                    var name = { "name": dojo.attr('mname', 'value'), "description": dojo.attr('mdescription', 'value'), "vote": "0", "gender": "MALE" };
+					dojo.xhrPost( {
+                          url: '${names}',
+						  postData: dojo.toJson(name),
+                          headers: { "Accept": "application/json", "Content-Type": "application/json" },
+		      		      handleAs:"json",
+		      			  timeout: 5000,
+                          load: function(data){ 
+							dijit.byId('maleForm').reset();
+							dijit.byId('maleFormDialog').hide();
+							loadGenderNames('MALE'); 
+						  },
+                          error: function(data){ 
+							dijit.byId('maleFormDialog').hide();
+						  }
+                    });
+                ]]>
+                </script>
+                <div id="mform">
+		   			<div class="field">
+			   			<label for="mname">${fieldName}:</label>
+			   			<input type="text" name="name" id="mname" required="true" dojoType="dijit.form.ValidationTextBox" propercase="true"/>
+		   			</div>
+		   			<div class="field">
+			   			<label for="mdescription">${fieldDescription}:</label>
+			   			<textarea name="description" id="mdescription" dojoType="dijit.form.Textarea" trim="true" ><![CDATA[&nbsp;]]></textarea>
+			   		</div>
+			   		<div class="field button">
+			   			<button dojoType="dijit.form.Button" type="submit">${button_save}</button>
+			   			<button dojoType="dijit.form.Button" type="button" onClick="resetAndHideForm('maleForm');">${button_cancel}</button>
+			   		</div>
+		   		</div>
+		   		<div id="merror" style="display: none;">
+		   			<span class="error">${fieldFormError}</span>
+		   			<div><a href="#" onclick="backToForm('m')">${return}</a></div>
+				</div>
+	   		</form>
+   		</div>
+   		<sec:authorize access="hasRole('ROLE_ADMIN')">
+   		<div class="formlink">
+  			<a href="#" onclick="dijit.byId('maleFormDialog').show();">${newName}</a>
+  		</div>
+  		</sec:authorize>
+   	</div>
+   	<div id="right">
+   		<spring:message code="label_gender_female_plural" var="femalePlural"/>
+   		<div class="column_title">${femalePlural}</div>
+   		<div id="female_names"><![CDATA[&nbsp;]]></div>
+   		<div dojoType="dijit.Dialog" class="nameForm" id="femaleFormDialog" title="${formDialogTitle} ${fn:toUpperCase(fn:substring(femalePlural, 0, 1))}${fn:toLowerCase(fn:substring(femalePlural, 1, -1))}">
+	   		<form dojoType="dijit.form.Form"  id="femaleForm">
+	   			<script type="dojo/event" event="onSubmit" args="em">
+				<![CDATA[
+                    dojo.stopEvent(em); // prevent the default submit
+                    if (!this.isValid()) {
+						showFormError('f');
+                        return;
+                    }
+
+                    var name = { "name": dojo.attr('fname', 'value'), "description": dojo.attr('fdescription', 'value'), "vote": "0", "gender": "FEMALE" };
+					dojo.xhrPost( {
+                          url: '${names}',
+						  postData: dojo.toJson(name),
+                          headers: { "Accept": "application/json", "Content-Type": "application/json" },
+		      		      handleAs:"json",
+		      			  timeout: 5000,
+                          load: function(data){ 
+							dijit.byId('femaleForm').reset();
+							dijit.byId('femaleFormDialog').hide();
+							loadGenderNames('FEMALE'); 
+						  },
+                          error: function(data){
+							dijit.byId('femaleFormDialog').hide();
+						  }
+                    });
+                ]]>
+                </script>
+                <div id="fform">
+		   			<div class="field">
+			   			<label for="fname">${fieldName}:</label>
+			   			<input type="text" name="name" id="fname" required="true" dojoType="dijit.form.ValidationTextBox" invalidMessage="Campo requerido" propercase="true"/>
+		   			</div>
+		   			<div class="field">
+			   			<label for="fdescription">${fieldDescription}:</label>
+			   			<textarea name="description" id="fdescription" dojoType="dijit.form.Textarea" trim="true" ><![CDATA[&nbsp;]]></textarea>
+			   		</div>
+			   		<div class="field button">
+			   			<button dojoType="dijit.form.Button" type="submit">${button_save}</button>
+			   			<button dojoType="dijit.form.Button" type="button" onClick="resetAndHideForm('femaleForm');">${button_cancel}</button>
+			   		</div>
+		   		</div>
+		   		<div id="ferror" style="display: none;">
+		   			<span class="error">${fieldFormError}</span>
+		   			<div><a href="#" onclick="backToForm('f')">${return}</a></div>
+				</div>
+	   		</form>
+   		</div>
+   		<sec:authorize access="hasRole('ROLE_ADMIN')">
+   		<div class="formlink">
+  			<a href="#" onclick="dijit.byId('femaleFormDialog').show();">${newName}</a>
+  		</div>
+  		</sec:authorize>
+   	</div>
+    <div class="clear-both"/>
+
+	<spring:url value="/resources/images/ajax-loader.gif" var="ajax_loader" />
+	<spring:url value="/resources/images/icons-tools-sprite.png" var="thumb_up" />
+	<script type="text/javascript">
+	<![CDATA[
+	    function loadGenderNames(gender) {
+	    	var dojo_table = dojo.byId(gender.toLowerCase() + '_names');
+		    //var rimg = new Image();
+		    //rimg.src = "";
+		    dojo_table.innerHTML = "<div class=\"loading\"><img src='${ajax_loader}' alt='loading' /></div>";
+			dojo.xhrGet( {
+		      url: "${names}", // read the url: from the action="" of the
+		      content: { find:"ByGender", gender: gender},
+		      headers: { "Accept": "application/json" },
+		      handleAs:"text",
+		      timeout: 5000, // give up after 5 seconds
+		      load: function(data, ioArgs){
+		    	  var obj = {};
+		          obj = JSON.parse(data);
+		          var s = '';
+		          for (var i = 0; i < obj.length; i++){
+		        	  s += '<div class="name_item" id="' + gender.toLowerCase() + '_' + obj[i].id + '">';
+		        	  s += '<div class="name_desc">';
+		        	  s += '<div class="name">'+ obj[i].name + '</div>';
+		        	  s += '<div class="description">'+ obj[i].description + '</div>';
+		        	  s += '</div>';
+		        	  s += '<div class="vote_thumbup">';
+	        	  	  s += '<ul><li><a onclick="thumbUp(\'' + obj[i].id + '\')" class="thumbup" id="vote_' + obj[i].id + '">' + obj[i].vote + '</a></li></ul>';
+		        	  s += '</div>';
+		        	  s += '</div>';
+		          }
+		        dojo_table.innerHTML = s;
+		      },
+		      error: function(err, ioArgs){
+		        dojo_table.innerHTML = "An unexpected error occurred: " + error;
+		      }
+		    });
+	    }
+	    
+	    function thumbUp(itemId) {
+	    	dojo.require("dojo.cookie");
+			var allowed = dojo.fromJson(dojo.cookie("voteAllowed"));
+			
+			if (allowed == undefined) {
+				allowed = new Object();
+			}
+			
+			if (allowed[itemId] == undefined || allowed[itemId] != "NO"){
+		    	dojo.xhrPut( {
+		  	      url: "${names}/" + itemId + "/liked",
+		  	      headers: { "Accept": "application/json" },
+		  	      handleAs:"text",
+		  	      timeout: 5000, // give up after 5 seconds
+		  	      load: function(data, ioArgs){
+		  	    	  var obj = JSON.parse(data);
+		  	    	  var nameLiked = dojo.byId('vote_' + itemId);
+		  	    	  nameLiked.innerHTML = obj.vote;
+		  	    	  allowed[itemId] = "NO";
+		  	    	  dojo.cookie("voteAllowed", dojo.toJson(allowed));
+		  	      }
+		    	});
+			}
+	  	      /*,
+	  	      error: function(err, ioArgs){
+	  	        // again, ioArgs is useful, but not in simple cases
+	  	        dojo_table.innerHTML = "An unexpected error occurred: " + error;
+	  	      }*/
+	    }
+	    
+	    function showFormError(prefix) {
+	    	dojo.attr(prefix + 'form', 'style', { display: 'none' });
+			dojo.attr(prefix + 'error', 'style', { display: 'block' });
+	    }
+	    
+	    function backToForm(prefix) {
+	    	dojo.attr(prefix + 'error', 'style', { display: 'none' });
+			dojo.attr(prefix + 'form', 'style', { display: 'block' });
+	    }
+	    
+	    function resetAndHideForm(form) { 
+			dijit.byId(form).reset();
+			dijit.byId(form + 'Dialog').hide();
+	    }
+	    
+	    dojo.addOnLoad(function() {
+	    	var genders = new Array("MALE", "FEMALE");
+	    	for (var i = 0; i < genders.length; i++) {
+	    		var gender = genders[i];
+	    		loadGenderNames(gender);
+	    	}	
+	    });
+	
+	]]>
+	</script>
+	<jsp:include page="/WEB-INF/views/modal_login.jspx" />
+</div>

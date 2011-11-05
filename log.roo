@@ -17,3 +17,50 @@ perform eclipse
 osgi ps
 quit
 // Spring Roo 1.1.5.RELEASE [rev d3a68c3] log closed at 2011-07-25 19:37:27
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-08-01 18:06:53
+finder list --class ~.domain.Name
+finder add --class ~.domain.Name --finderName findNamesByGender
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-09-02 17:03:50
+perform eclipse
+osgi ps
+addon info id 61
+addon info id --searchResultId 61
+addon search --requiresDescription json
+addon info id --searchResultId 01
+addon info id --searchResultId 02
+json add --class ~.domain.Name
+perform eclipse
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log closed at 2011-09-02 17:42:44
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-09-15 17:42:53
+web mvc language --code es
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-09-17 18:25:09
+perform eclipse
+test integration --entity ~.domain.Name
+persistence setup --provider HIBERNATE --database HYPERSONIC_IN_MEMORY 
+perform tests
+perform tests
+perform tests
+perform tests
+perform eclipse
+perform command --mavenCommand integration-test
+perform eclipse
+perform command --mavenCommand integration-test
+// [failed] perform tests
+perform tests 
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log closed at 2011-09-17 22:15:33
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-10-05 23:47:49
+security setup 
+perform eclipse
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log closed at 2011-10-06 00:10:40
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-10-12 19:18:24
+perform eclipse
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log closed at 2011-10-12 19:30:22
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-10-15 17:21:47
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-10-20 23:18:18
+addon info id --searchResultId 01
+osgi obr url add --url http://spring-roo-repository.springsource.org/repository.xml
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log closed at 2011-10-20 23:20:46
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log opened at 2011-10-20 23:22:08
+// [failed] osgi obr start --bundleSymbolicName org.springframework.roo.addon.cloud.foundry
+// [failed] addon install id --searchResultId 01
+// Spring Roo 1.1.5.RELEASE [rev d3a68c3] log closed at 2011-10-20 23:31:37

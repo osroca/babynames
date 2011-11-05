@@ -49,19 +49,6 @@ privileged aspect NameController_Roo_Controller {
         return "names/show";
     }
     
-    @RequestMapping(method = RequestMethod.GET)
-    public String NameController.list(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model uiModel) {
-        if (page != null || size != null) {
-            int sizeNo = size == null ? 10 : size.intValue();
-            uiModel.addAttribute("names", Name.findNameEntries(page == null ? 0 : (page.intValue() - 1) * sizeNo, sizeNo));
-            float nrOfPages = (float) Name.countNames() / sizeNo;
-            uiModel.addAttribute("maxPages", (int) ((nrOfPages > (int) nrOfPages || nrOfPages == 0.0) ? nrOfPages + 1 : nrOfPages));
-        } else {
-            uiModel.addAttribute("names", Name.findAllNames());
-        }
-        return "names/list";
-    }
-    
     @RequestMapping(method = RequestMethod.PUT)
     public String NameController.update(@Valid Name name, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
@@ -91,11 +78,6 @@ privileged aspect NameController_Roo_Controller {
     @ModelAttribute("genders")
     public Collection<Gender> NameController.populateGenders() {
         return Arrays.asList(Gender.class.getEnumConstants());
-    }
-    
-    @ModelAttribute("names")
-    public Collection<Name> NameController.populateNames() {
-        return Name.findAllNames();
     }
     
     String NameController.encodeUrlPathSegment(String pathSegment, HttpServletRequest httpServletRequest) {
