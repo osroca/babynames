@@ -20,8 +20,8 @@ Every suggestion will be welcome.
 
 ## Database storage
 
-I integrated Hypersonic DB in memory. But you can change it and the easy way to do that is using spring
-roo shell with the command:
+I integrated Hypersonic DB in memory. But you can change it and the easiest way to do that is using Spring
+Roo' shell with the command:
 
 ``persistence setup --provider HIBERNATE --database <DATABASE>``
 
